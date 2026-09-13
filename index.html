@@ -574,6 +574,141 @@
     filter: drop-shadow(0 20px 40px rgba(0,0,0,0.5));
   }
 
+  /* ===== TESTIMONIALS ===== */
+  .testimonials{
+    position: relative;
+    z-index: 1;
+    padding: 40px 24px 40px;
+  }
+  .rating-summary{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap: 10px;
+    margin-top: 6px;
+    flex-wrap: wrap;
+  }
+  .stars{
+    display:inline-flex;
+    gap: 3px;
+    color: var(--purple-light);
+    font-size: 1.05rem;
+    letter-spacing: 1px;
+  }
+  .rating-summary span{
+    color: var(--text-faint);
+    font-size: 0.9rem;
+  }
+  .testimonial-grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  @media (max-width: 900px){
+    .testimonial-grid{ grid-template-columns: 1fr; }
+  }
+  .testimonial-card{
+    background: var(--surface);
+    border: 1px solid var(--surface-line);
+    border-radius: 18px;
+    padding: 28px 26px;
+    display:flex;
+    flex-direction:column;
+    gap: 14px;
+    transition: transform 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
+  }
+  .testimonial-card:hover{
+    border-color: rgba(168,85,247,0.4);
+    box-shadow: 0 16px 40px rgba(124,58,237,0.2);
+    transform: translateY(-3px);
+  }
+  .testimonial-quote{
+    color: var(--text);
+    font-size: 0.96rem;
+    line-height: 1.55;
+  }
+  .testimonial-author{
+    display:flex;
+    align-items:center;
+    gap: 10px;
+    color: var(--text-faint);
+    font-size: 0.85rem;
+  }
+  .testimonial-avatar{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--purple-light), var(--purple-deep));
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color: #0a0611;
+    font-weight: 700;
+    font-size: 0.8rem;
+    flex-shrink: 0;
+  }
+
+  .review-form-wrap{
+    max-width: 560px;
+    margin: 56px auto 0;
+    background: var(--surface);
+    border: 1px solid var(--surface-line);
+    border-radius: 20px;
+    padding: 36px 32px;
+  }
+  .review-form-wrap h3{
+    font-size: 1.2rem;
+    margin-bottom: 18px;
+    text-align: center;
+  }
+  .review-form{
+    display:flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .star-input{
+    display:flex;
+    justify-content:center;
+    gap: 6px;
+  }
+  .star-btn{
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    line-height:1;
+    color: var(--surface-line);
+    cursor: pointer;
+    transition: color 150ms ease, transform 150ms ease;
+    padding: 2px;
+  }
+  .star-btn:hover{ transform: scale(1.15); }
+  .star-btn.active{ color: var(--purple-light); }
+  .review-form input[type="text"],
+  .review-form textarea{
+    width: 100%;
+    background: var(--bg-soft);
+    border: 1px solid var(--surface-line);
+    border-radius: 10px;
+    padding: 12px 14px;
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    resize: vertical;
+  }
+  .review-form input[type="text"]:focus,
+  .review-form textarea:focus{
+    outline: none;
+    border-color: rgba(168,85,247,0.5);
+  }
+  .review-form textarea{ min-height: 90px; }
+  .review-form .btn{ align-self:center; }
+  .review-thanks{
+    text-align:center;
+    color: var(--purple-light);
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
   /* ===== CTA FOOTER BAND ===== */
   .cta-band{
     position: relative;
@@ -898,6 +1033,37 @@
   </div>
 </section>
 
+<section class="testimonials" id="testimonials">
+  <div class="wrap">
+    <div class="section-head sr">
+      <h2>What the community's saying</h2>
+      <div class="rating-summary">
+        <span class="stars" id="avgStars">★★★★★</span>
+        <span id="avgText">Loading reviews…</span>
+      </div>
+    </div>
+
+    <div class="testimonial-grid" id="testimonialList"></div>
+
+    <div class="review-form-wrap sr">
+      <h3>Leave your own review</h3>
+      <form id="reviewForm" class="review-form">
+        <div class="star-input" id="starInput" role="radiogroup" aria-label="Star rating">
+          <button type="button" class="star-btn active" data-value="1">★</button>
+          <button type="button" class="star-btn active" data-value="2">★</button>
+          <button type="button" class="star-btn active" data-value="3">★</button>
+          <button type="button" class="star-btn active" data-value="4">★</button>
+          <button type="button" class="star-btn active" data-value="5">★</button>
+        </div>
+        <input type="text" id="reviewName" placeholder="Your name" maxlength="40" required>
+        <textarea id="reviewComment" placeholder="Tell us about your experience..." maxlength="300" required></textarea>
+        <button type="submit" class="btn btn-buy">Submit Review</button>
+        <p class="review-thanks" id="reviewThanks" style="display:none;">Thanks! Your review has been added below.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
 <section class="pricing" id="pricing">
   <div class="wrap">
     <div class="section-head sr">
@@ -1063,6 +1229,113 @@
       }
     });
   }
+</script>
+
+<script>
+  (function(){
+    // Seed reviews sourced from Discord — swap "Discord member" for real handles whenever you have them.
+    var seedReviews = [
+      { name: "Discord member", stars: 5, text: "yall need to try this 0 deley and higher fps" },
+      { name: "Discord member", stars: 5, text: "bro this is so good it got me from barely being able to run 90 fps to 200 fps stable and no delay and way less ping bro this is so good" },
+      { name: "Discord member", stars: 5, text: "Insaneee, reduced my delay and the game play feels so buttery smooth its crazy" },
+      { name: "Discord member", stars: 5, text: "Let's Go I am 450 FPS guys this is crazy look my photo this is the best tweaks I love you D" },
+      { name: "Discord member", stars: 5, text: "These are hands down the best tweaks ever. I've seriously never seen anything like this. My PC went from barely hitting 70 FPS under pressure to a massive 350 FPS increase. Absolutely unreal, wow!" },
+      { name: "Discord member", stars: 5, text: "its so good you need to try it and i get a hunderd more fps and lowk 0 delay" }
+    ];
+
+    var STORAGE_KEY = 'dstweaks_reviews';
+
+    function loadStoredReviews(){
+      try {
+        var raw = localStorage.getItem(STORAGE_KEY);
+        return raw ? JSON.parse(raw) : [];
+      } catch(e){ return []; }
+    }
+
+    function saveStoredReviews(reviews){
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(reviews)); } catch(e){}
+    }
+
+    function starString(n){
+      n = Math.max(0, Math.min(5, Math.round(n)));
+      return '★★★★★'.slice(0, n) + '☆☆☆☆☆'.slice(0, 5 - n);
+    }
+
+    function escapeHtml(str){
+      var div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
+    function renderReviews(){
+      var stored = loadStoredReviews();
+      var all = stored.concat(seedReviews); // newest submissions show first
+      var list = document.getElementById('testimonialList');
+      if (!list) return;
+      list.innerHTML = '';
+      all.forEach(function(r){
+        var card = document.createElement('div');
+        card.className = 'testimonial-card';
+        card.innerHTML =
+          '<span class="stars">' + starString(r.stars) + '</span>' +
+          '<p class="testimonial-quote">' + escapeHtml(r.text) + '</p>' +
+          '<div class="testimonial-author">' +
+            '<div class="testimonial-avatar">' + escapeHtml((r.name || '?').charAt(0).toUpperCase()) + '</div>' +
+            '<span>' + escapeHtml(r.name || 'Anonymous') + '</span>' +
+          '</div>';
+        list.appendChild(card);
+      });
+
+      var avg = all.length ? all.reduce(function(sum, r){ return sum + r.stars; }, 0) / all.length : 0;
+      var avgStarsEl = document.getElementById('avgStars');
+      var avgTextEl = document.getElementById('avgText');
+      if (avgStarsEl) avgStarsEl.textContent = starString(avg);
+      if (avgTextEl) avgTextEl.textContent = avg.toFixed(1) + ' / 5 average from ' + all.length + ' review' + (all.length === 1 ? '' : 's');
+    }
+
+    renderReviews();
+
+    // Star picker for the submission form
+    var selectedStars = 5;
+    var starBtns = document.querySelectorAll('.star-btn');
+    function updateStarButtons(n){
+      starBtns.forEach(function(btn){
+        btn.classList.toggle('active', Number(btn.dataset.value) <= n);
+      });
+    }
+    updateStarButtons(selectedStars);
+    starBtns.forEach(function(btn){
+      btn.addEventListener('click', function(){
+        selectedStars = Number(btn.dataset.value);
+        updateStarButtons(selectedStars);
+      });
+    });
+
+    var form = document.getElementById('reviewForm');
+    if (form){
+      form.addEventListener('submit', function(e){
+        e.preventDefault();
+        var name = document.getElementById('reviewName').value.trim();
+        var comment = document.getElementById('reviewComment').value.trim();
+        if (!name || !comment) return;
+
+        var stored = loadStoredReviews();
+        stored.unshift({ name: name, stars: selectedStars, text: comment });
+        saveStoredReviews(stored);
+        renderReviews();
+
+        form.reset();
+        selectedStars = 5;
+        updateStarButtons(selectedStars);
+
+        var thanks = document.getElementById('reviewThanks');
+        if (thanks){
+          thanks.style.display = 'block';
+          setTimeout(function(){ thanks.style.display = 'none'; }, 4000);
+        }
+      });
+    }
+  })();
 </script>
 </body>
 </html>
