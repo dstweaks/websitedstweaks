@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — D's Tweaks</title>
+<meta name="description" content="How D's Tweaks collects, uses and protects your information.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0611; --bg-soft:#120a1e; --surface:#17101f; --surface-line:#2a1c3a;
+    --purple:#a855f7; --purple-deep:#7c3aed; --purple-light:#c084fc;
+    --text:#f1e9fb; --text-dim:#a893c2; --text-faint:#6f5c8a;
+  }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    background:var(--bg); color:var(--text);
+    font-family:'Inter',sans-serif; line-height:1.65; overflow-x:hidden;
+  }
+  a{ color:inherit; }
+  a:focus-visible, button:focus-visible{ outline:2px solid var(--purple-light); outline-offset:3px; border-radius:4px; }
+
+  .glow-field{
+    position:fixed; inset:0; pointer-events:none; z-index:0;
+    background:
+      radial-gradient(600px 400px at 18% 0%, rgba(168,85,247,0.14), transparent 60%),
+      radial-gradient(500px 380px at 88% 18%, rgba(124,58,237,0.12), transparent 60%);
+  }
+
+  nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(10,6,17,0.75); backdrop-filter:blur(14px);
+    border-bottom:1px solid rgba(168,85,247,0.14);
+  }
+  .nav-inner{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 24px; max-width:1120px; margin:0 auto;
+  }
+  .brand{ display:flex; align-items:center; gap:12px; text-decoration:none; }
+  .brand-badge{
+    width:40px; height:40px; border-radius:50%; overflow:hidden;
+    border:1.5px solid rgba(192,132,252,0.5);
+    box-shadow:0 0 16px rgba(168,85,247,0.45); flex-shrink:0;
+  }
+  .brand-badge img{ width:100%; height:100%; object-fit:cover; }
+  .brand-name{ font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:1.15rem; }
+  .brand-name span{ color:var(--purple-light); }
+  .nav-cta{
+    background:linear-gradient(135deg,var(--purple),var(--purple-deep));
+    color:#fff; padding:10px 20px; border-radius:999px;
+    font-weight:600; font-size:0.9rem; text-decoration:none;
+    box-shadow:0 4px 20px rgba(124,58,237,0.35);
+  }
+
+  main{ position:relative; z-index:1; max-width:760px; margin:0 auto; padding:64px 24px 40px; }
+
+  .back{
+    display:inline-flex; align-items:center; gap:8px;
+    color:var(--text-faint); font-size:0.88rem; text-decoration:none; margin-bottom:28px;
+  }
+  .back:hover{ color:var(--purple-light); }
+
+  h1{
+    font-family:'Space Grotesk',sans-serif; font-weight:700; letter-spacing:-0.02em;
+    font-size:clamp(2rem,5vw,2.8rem); line-height:1.1; margin-bottom:12px;
+  }
+  .updated{ color:var(--text-faint); font-size:0.9rem; margin-bottom:40px; }
+
+  .doc h2{
+    font-family:'Space Grotesk',sans-serif; font-weight:700; letter-spacing:-0.01em;
+    font-size:1.25rem; margin:38px 0 12px; padding-top:22px;
+    border-top:1px solid var(--surface-line);
+  }
+  .doc h2:first-of-type{ border-top:none; padding-top:0; margin-top:0; }
+  .doc p{ color:var(--text-dim); margin-bottom:14px; }
+  .doc ul{ margin:0 0 16px 0; padding:0; }
+  .doc li{
+    list-style:none; color:var(--text-dim);
+    padding-left:20px; margin-bottom:10px; position:relative;
+  }
+  .doc li::before{
+    content:''; position:absolute; left:2px; top:0.72em;
+    width:6px; height:6px; border-radius:50%; background:var(--purple);
+  }
+  .doc strong{ color:var(--text); font-weight:600; }
+  .doc a{ color:var(--purple-light); font-weight:500; }
+
+  .callout{
+    background:var(--surface); border:1px solid var(--surface-line);
+    border-left:3px solid var(--purple); border-radius:14px;
+    padding:20px 22px; margin:28px 0;
+  }
+  .callout p{ margin-bottom:0; }
+
+  .doc-nav{
+    display:flex; gap:12px; flex-wrap:wrap;
+    margin-top:56px; padding-top:28px; border-top:1px solid var(--surface-line);
+  }
+  .doc-nav a{
+    background:rgba(255,255,255,0.03); border:1px solid var(--surface-line);
+    border-radius:10px; padding:10px 18px; font-size:0.9rem;
+    text-decoration:none; color:var(--text);
+  }
+  .doc-nav a:hover{ border-color:rgba(168,85,247,0.5); background:rgba(168,85,247,0.06); }
+
+  footer{
+    position:relative; z-index:1; padding:40px 24px 32px; margin-top:40px;
+    border-top:1px solid var(--surface-line);
+  }
+  .footer-inner{
+    display:flex; justify-content:space-between; align-items:center;
+    flex-wrap:wrap; gap:20px; max-width:1120px; margin:0 auto;
+  }
+  .footer-brand{ display:flex; align-items:center; gap:10px; color:var(--text-faint); font-size:0.9rem; }
+  .footer-badge{ width:26px; height:26px; border-radius:50%; overflow:hidden; }
+  .footer-badge img{ width:100%; height:100%; object-fit:cover; }
+  .footer-links{ display:flex; gap:24px; font-size:0.88rem; color:var(--text-faint); flex-wrap:wrap; }
+  .footer-links a{ text-decoration:none; }
+  .footer-links a:hover{ color:var(--purple-light); }
+</style>
+</head>
+<body>
+
+<div class="glow-field"></div>
+
+<nav>
+  <div class="nav-inner">
+    <a class="brand" href="index.html">
+      <div class="brand-badge"><img src="logo-badge.png" alt=""></div>
+      <div class="brand-name">D's <span>Tweaks</span></div>
+    </a>
+    <a href="PADDLE_CHECKOUT_URL" class="nav-cta">Buy Now — $11</a>
+  </div>
+</nav>
+
+<main>
+  <a class="back" href="index.html">&larr; Back to D's Tweaks</a>
+  <h1>Privacy Policy</h1>
+  <p class="updated">Last updated: 16 September 2026</p>
+
+  <div class="doc">
+    <p>D's Tweaks respects your privacy. This policy explains what information we collect when you visit the site or buy the software, how it is used, and who else is involved.</p>
+
+    <h2>1. Information we collect</h2>
+    <ul>
+      <li><strong>Purchase and billing data.</strong> Orders are processed by <strong>Paddle.com Market Ltd</strong>, which acts as the merchant of record for every sale. Paddle collects your email address, billing details and the location data it needs to calculate sales tax or VAT, and passes us the order confirmation and email address so we can deliver your download and provide support.</li>
+      <li><strong>Technical data.</strong> Standard web logs and analytics, such as IP address, browser type and pages visited, used to keep the site secure and working properly.</li>
+      <li><strong>Support messages.</strong> Anything you send us through Discord or a support ticket, kept so we can help you and follow up.</li>
+    </ul>
+
+    <h2>2. How we use it</h2>
+    <ul>
+      <li>To process your order and deliver the software and any access links.</li>
+      <li>To send transactional email: receipts, download links and support replies.</li>
+      <li>To answer support requests and diagnose issues.</li>
+      <li>To improve the website and the product.</li>
+    </ul>
+
+    <h2>3. What the app itself collects</h2>
+    <div class="callout">
+      <p>The D's Tweaks desktop application does not include telemetry and does not send your system data, usage or files to us. Optimizations are applied locally on your machine.</p>
+    </div>
+
+    <h2>4. Payments and card details</h2>
+    <p>We never see or store your full card details. All payment information is handled directly by Paddle under its own privacy policy and security standards. Because Paddle is the merchant of record, it is the seller on your receipt and the data controller for your payment data.</p>
+
+    <h2>5. Third parties</h2>
+    <p>We use a small number of trusted providers — currently Paddle for payments, tax and billing, and Discord for community and support. Each handles your data under its own terms. We do not sell, rent or trade your personal information.</p>
+
+    <h2>6. Retention</h2>
+    <p>Order records are kept for as long as needed to provide support, deliver updates and meet tax and accounting obligations. Support conversations are kept only as long as they are useful.</p>
+
+    <h2>7. Your rights</h2>
+    <p>Depending on where you live, you may have the right to request a copy of the personal data we hold about you, ask us to correct it, or ask us to delete it. To make a request, contact us through Discord with the email address used for your purchase.</p>
+
+    <h2>8. Contact</h2>
+    <p>For anything privacy-related, reach us in the <a href="https://discord.gg/W87nJSP9f" target="_blank" rel="noopener">D's Tweaks Discord</a>.</p>
+  </div>
+
+  <div class="doc-nav">
+    <a href="terms.html">Terms of Service</a>
+    <a href="refund.html">Refund Policy</a>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-badge"><img src="logo-badge.png" alt=""></div>
+      D's Tweaks — The only tweaks you'll ever need
+    </div>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="terms.html">Terms</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="refund.html">Refunds</a>
+      <a href="https://discord.gg/W87nJSP9f" target="_blank" rel="noopener">Discord</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
